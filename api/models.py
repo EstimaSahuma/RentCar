@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from tabnanny import verbose
 from django.db import models
 from django.contrib.auth.models import User
@@ -10,7 +11,7 @@ class Revendedor(models.Model):
     phone_secondary = models.CharField(max_length=20)
     email = models.EmailField(unique=True)
     bi = models.CharField(max_length=15, unique=True)#Number identification to people
-    avatar = models.CharField(max_length=255)
+    avatar = models.ImageField(upload_to = 'images')
 
     class Meta:
         verbose_name = 'Revendedor'
@@ -73,7 +74,7 @@ class Visita(models.Model):
 class Doc(models.Model):
     designation = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
-    avatar = models.CharField(max_length=255)
+    avatar = models.ImageField(upload_to = 'images')
 
     class Meta:
         abstract = True
