@@ -92,3 +92,5 @@ class Doc_Carro(Doc):
 
     class Meta:
         ordering = ['id']
+
+""" Proposta de carro sera uma classe com a de visita """
