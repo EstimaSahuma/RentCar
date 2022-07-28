@@ -1,6 +1,5 @@
 from django.shortcuts import render
 
-from django.db.models import F, Q, Sum
 from .models import Revendedor
 from .serializers import RevendedorSerializer
 
@@ -15,5 +14,3 @@ from rest_framework.generics import get_object_or_404
 class RevendedorViewSet(generics.ModelViewSet):
     serializer_class = RevendedorSerializer
     queryset = Revendedor.objects.all()
-
-    
