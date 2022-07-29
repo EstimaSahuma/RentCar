@@ -25,6 +25,7 @@ class User_Revendedor(models.Model):
 
 
 class Carro(models.Model):
+    #revendedor = models.ForeignKey(Revendedor, related_name='carros', on_delete=models.CASCADE)
     marca = models.CharField(max_length=255)
     cor = models.CharField(max_length=255)
     matricula = models.CharField(max_length=255)

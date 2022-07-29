@@ -3,18 +3,7 @@ from rest_framework import serializers
 
 from .models import Avaria, Avatar_Carro, Carro, Doc, Doc_Carro, Doc_Revendedor, Revendedor, User_Revendedor, Visita
 
-class RevendedorSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Revendedor
-        fields = ('name', 'phone_primary', 'phone_secondary', 'email', 'bi', 'avatar')
-
-
-class CarroSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Carro
-        fields = ('marca', 'cor', 'matricula', 'modelo', 'tipo_motor', 'estado')
 
 
 class AvariaSerializer(serializers.ModelSerializer):
@@ -49,11 +38,30 @@ class DocRevendedorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Doc_Revendedor
-        fields = ('revendedor')
+        fields = ('revendedor', 'designation', 'description', 'avatar')
 
 
 class DocCarroSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Doc_Carro
-        fields = ('carro')
+        fields = ('carro', 'designation', 'description', 'avatar')
+
+
+class RevendedorSerializer(serializers.ModelSerializer):
+    doc_revendedores = DocRevendedorSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Revendedor
+        fields = ('name', 'phone_primary', 'phone_secondary', 'email', 'bi', 'avatar', 'doc_revendedores')
+
+
+class CarroSerializer(serializers.ModelSerializer):
+    doc_carros = DocCarroSerializer(many=True, read_only=True)
+    avarias = AvariaSerializer(many=True, read_only=True)
+    avatar_carroes = AvatarCarroSerializer(many=True, read_only=True)
+    visitas = VisitaSerializer(many=True, read_only=True)
+    class Meta:
+        model = Carro
+        fields = ('marca', 'cor', 'matricula', 'modelo', 'tipo_motor', 'estado',
+                 'doc_carros', 'avarias', 'avatar_carroes', 'visitas')
